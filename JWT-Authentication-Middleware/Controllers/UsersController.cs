@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using JWT_Authentication_Middleware.Models;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using JWT_Authentication_Middleware.Models;
 using Microsoft.Extensions.Logging;
 
 namespace JWT_Authentication_Middleware.Controllers
@@ -10,9 +10,9 @@ namespace JWT_Authentication_Middleware.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(ILogger<WeatherForecastController> logger)
+        public UsersController(ILogger<UsersController> logger)
         {
             _logger = logger;
         }
