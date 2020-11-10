@@ -1,11 +1,10 @@
 ﻿using JWT_Authentication_Middleware.Entities;
-using System;
 
 namespace JWT_Authentication_Middleware.Models
 {
     public class AuthenticateResponse
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Token { get; set; }
 

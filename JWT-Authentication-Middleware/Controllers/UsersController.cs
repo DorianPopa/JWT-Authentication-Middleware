@@ -1,8 +1,8 @@
 ﻿using JWT_Authentication_Middleware.Models;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using JWT_Authentication_Middleware.Services;
+using JWT_Authentication_Middleware.Helpers;
 
 namespace JWT_Authentication_Middleware.Controllers
 {
@@ -11,23 +11,31 @@ namespace JWT_Authentication_Middleware.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
+        private readonly IUserService _userService;
 
-        public UsersController(ILogger<UsersController> logger)
+        public UsersController(ILogger<UsersController> logger, IUserService userService)
         {
             _logger = logger;
+            _userService = userService;
         }
 
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate(AuthenticateRequest request)
+        public IActionResult Authenticate(AuthenticateRequest request)
         {
-            return Ok();
+            var response = _userService.Authenticate(request);
+
+            if (response == null)
+                return BadRequest(new { Message = "Username or password is incorrect" });
+
+            return Ok(response);
         }
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            return Ok();
+            var users = _userService.GetAll();
+            return Ok(users);
         }
     }
 }
